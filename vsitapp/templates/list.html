@@ -1,0 +1,74 @@
+{% load static %}
+<html>
+<head>
+    <title>Perspectives</title>
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+</head>
+<body>
+    <h1 id="list-head">See what others think about this...</h1>
+    <a href="/home_login" id="home">Go Home</a>
+	{% if profile %}
+        <div class='people'>
+            {% for person in profile %}
+                <div class="people-inner">
+                    <div class="delete" id="{{ person.id }}">
+                        <img src="{% static "image/cancel.png" %}" alt="close" class="remove">
+                    </div>
+                    <div class='people-head'>
+                        <h2>{{ person.name }} ({{ person.title }})</h2>
+                    </div>
+                    <div class="people-story">
+                        <p>{{ person.story }}</p>
+                    </div>
+                    <div class="footer">
+                        <span>
+                            <img src="{% static "image/like.png" %}" alt="upvote" id="{{ person.id }}" class="upvotes">
+                        </span>
+                        <span class="votings">{{ person.votings }}</span>
+                        <span>
+                            <img src="{% static "image/dislike.png" %}" id="{{ person.id }}" class="downvotes" alt="down">
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Below div indicates the position where disqus widget is loaded -->
+        <div id="disqus_thread"></div>
+
+        <!-- Below div shows the error message if user gives vote without logging in -->
+        <div class="fail">
+            <p id="fail-message">To give your vote, you need to log in first :)</p>
+        </div>
+
+    {% else %}
+        <!-- When there is no post, below message is shown -->
+		<p>This page is looking for Kind and helpful People</p>
+	{% endif %}
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="{% static "js/list.js" %}"></script>
+    <script id="dsq-count-scr" src="//refresher.disqus.com/count.js" async></script>
+    <script>
+
+        var disqus_config = function () {
+        this.page.url = 'http://03cac964.ngrok.io/list/';
+        this.page.identifier = '/list/';
+        };
+        
+        (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://refresher.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                    
+</body>
+</html>

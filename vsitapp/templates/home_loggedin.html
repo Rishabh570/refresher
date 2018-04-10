@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ user.username }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/home_loggedin.css' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static "image/image.png" %}"/>
+</head>
+<body>
+    <div class='mybox'>
+
+        <audio loop autoplay>
+            <source src="{% static 'audio/relaxing-music.mp3' %}" type='audio/mp4'>
+            <!-- The next line will only be executed if the browser doesn't support the <audio> tag-->
+            <p>Your user agent does not support the HTML5 Audio element.</p>
+        </audio>
+    
+        <video width="100%" height='700px' autoplay loop>
+            <source src="{% static 'video/Mountains.mp4' %}" type="video/mp4" autoplay loop>
+            <source src="{% static 'video/Mountains.mp4' %}" type="video/ogg" autoplay loop>
+        </video>
+
+        <!-- The overlay -->
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content account" >            
+                
+                <div class="form">
+                    <form method="post" action="{% url 'home_login' %}" id="account-form">
+                        {% csrf_token %}
+                        <div class="table">
+                            <div class="table-col">
+                                <p>Username</p>
+                                <input type="text" name='username' id='username' class="login-fields">
+                            </div>
+                            <div class="table-col">
+                                <p>Password</p>
+                                <input type="password" name='password' id='password' class="login-fields">
+                            </div>
+                        </div>      
+                        <input type="submit" value="Log In" id="submit">
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </form>
+                    
+                    <div class="social-buttons">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+                        <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+                        <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+                    </div>  
+
+                </div>
+            </div>
+        </div>
+
+        <div class='main-head'>
+            <h1 id='heading' class="display-1">Refresher</h1>
+            <div class="left">
+                <div class="left-content">
+                    <h2>It's very glad to hear that you manage your stress so well..You can help others manage their stress by filling our survey form...</h2>
+                </div>
+                {% if not request.user.is_authenticated %}
+                    <button type="button" class="btn btn-secondary btn-lg get-started" onclick='openNav()'>Help your Fellows</button>
+                {% else %}
+                <button type="button" class="btn btn-secondary btn-lg get-started" onclick='window.location.href="/help/"'>Help your Fellows</button>
+                {% endif %}
+            </div>
+            <div class="right">
+                <div class="right-content">
+                    <h2>It's Perspective. See others with the same job profile who have top work-life balance, just enter your job title...</h2>
+                </div>
+                <form action="/list/" method='get'>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter your Job profile" name='title' id='search'>
+                    </div>
+                        <button type="submit" class="btn btn-secondary btn-lg get-started" id='search-submit'>Other's perspective</button>
+                </form>
+                
+                
+            </div>
+        </div>
+
+    </div>
+    <!--Bootstrap import-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--Jquery import-->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="{% static "js/main_loggedin.js" %}"></script>
+</body>
+</html>

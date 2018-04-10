@@ -1,0 +1,39 @@
+{% load static %}
+<html>
+<head>
+	<title>Help form</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/help-form.css" %}" />
+	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+		<div>
+				<form action='{% url "list" %}' method='POST'>
+					{% csrf_token %}
+					<div class="head">
+							<img src="{{ profile }}" alt="profile" id="picture">
+							<p id='welcome'>Welcome {{ request.user.first_name }} {{ request.user.last_name }}, we respect your valueable contribution...</p>
+		
+					</div>
+					<div class="form-body">
+							<label for="jobfield">Enter Your Job Title: </label>
+							<input type="text" name='title' id='jobfield' placeholder="Your Job title..." required><br>
+							<label for="storyfield">Enter Your Story: </label>
+							<textarea rows="10" cols="60" placeholder="Enter the story of your professional career, it will motivate others to fight stress and find the work-life balance and live a happy and healthy life..." name='story' id='storyfield' required>
+							</textarea>
+							<div class="g-recaptcha" data-sitekey="6LeATU0UAAAAAAEatflgre2k9MrdgtVW_QfGoEAz"></div>
+							<input type='submit' id='submit' value='Submit'>
+					</div>
+				</form>
+		</div>
+	<script
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+	<script src="{% static "js/help_form.js" %}"></script>
+	
+</body>
+</html>
