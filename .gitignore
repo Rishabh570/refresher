@@ -1,0 +1,11 @@
+.env
+
+vsitenv
+
+__pycache__
+
+/vsitapp/__pycache__
+/vsitapp/api/__pycache__
+/vsitapp/migrations/__pycache__
+/vsitapp/__pycache__
+/vsit/__pycache__

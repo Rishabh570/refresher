@@ -18,15 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from vsitapp import views
+from django.conf import settings
 
 urlpatterns = [
+    # Admin Dashboard URL
     url(r'^admin/', admin.site.urls),
 
-    # API urls
-    url(r'^api/list/', include(("vsitapp.api.urls", "vsitapp"), namespace='vsitapp')),
-    url(r'^api-auth/', include('rest_framework.urls')),
+    # API URL
+    url(r'^api/', include(("vsitapp.api.urls", "vsitapp"), namespace='vsitapp')),
     
-    url('^home/$', views.home, name='home'),
     url('^$', views.home_login, name='home_login'),  # Ngrok uses this most of the times
     url(r'^home_login/$', views.home_login, name='home_login'),
     url(r'help/$', views.help, name='help'),
@@ -35,22 +35,23 @@ urlpatterns = [
     # Use this to delete all values stored in db
     url(r'drop/$', views.drop),
 
-    # Login/Logout urls
+    # User Credentials URLs
     url(r'^login/', views.loginuser, name='login'),
     url(r'^logout/', views.logoutuser, name='logout'),
+    url(r'^signup/$', views.sign_up, name='sign_up'),
+    url(r'^passchangeform/$', views.passchange, name='passchangeform'),
 
-    # Social auth urls
+    # Social Auth URLs
     url(r'^auth/', include('social_django.urls', namespace='social')),
 
-    # Mail sending url
-    url(r'^send_mail/$', views.sendemail, name='sendemail'),
-
-    # AJAX urls
-    url(r'list/views/upvote/$', views.upvote, name='upvote'),
-    url(r'list/views/downvote/$', views.downvote, name='downvote'),
-    url(r'list/views/list/$', views.list, name='upvoted_list'),
-    url(r'list/views/delete/$', views.delete_post, name='delete'),
+    # AJAX URLs
+    url(r'^upvote/$', views.upvote, name='upvote'),
+    url(r'^downvote/$', views.downvote, name='downvote'),
+    url(r'^list/$', views.list, name='upvoted_list'),
+    url(r'^delete/$', views.delete_post, name='delete'),
+    
 ]
+
 
 # TODO: Host static files from S3 or somewhere
 if settings.DEBUG:

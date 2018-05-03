@@ -1,36 +1,39 @@
 import requests
 from forms import HelpForm
+from .forms import RegisterForm
+from django.urls import reverse
 from vsitapp.models import Post
 from django.conf import settings
-from django.shortcuts import render
-from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 
-# TODO: Remove this function and merge this in home_login
-def home(request):
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+
+
+'''
+Home Page View
+'''
+def home_login(request):
     if request.method == 'POST':
         userName = request.POST['username']
         passWord = request.POST['password']
         user = authenticate(request, username=userName, password=passWord)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/home/')
+            return HttpResponseRedirect('/home_login/')
         else:
             return HttpResponse('User doesn\'t exist')
-    else:
-        return render(request, 'home.html')
-
-# Main Home landing page
-def home_login(request):
     return render(request, 'home_loggedin.html')
 
-def list(request):
 
-    # --------------------------------POST method on lists---------------------------------------------
+'''
+Stories View 
+'''
+def list(request):
+    # ======================= POST METHOD ==============================================
     if request.method == 'POST':
 
         ''' Begin reCAPTCHA validation '''
@@ -43,13 +46,13 @@ def list(request):
 
         if res.json()['success']:
             title_lower = request.POST.get('title').lower()
-            author = request.user.first_name + request.user.last_name
-            profile = Post.objects.create(name=request.user.first_name, title=title_lower, story=request.POST.get('story'), author=author)
+            author = request.user.username
+            profile = Post.objects.create(first_name=request.user.first_name, title=title_lower, story=request.POST.get('story'), author=author)
             return HttpResponseRedirect('/list/')
         else:
-            return HttpResponseRedirect(r'/help/')
+            return HttpResponseRedirect('/help/')
 
-    # -------------------------------GET method on lists--------------------------------------------------
+    # ======================= GET METHOD ==============================================
     elif request.method == 'GET':
         if request.GET.get('title'):
             title_search = request.GET.get('title').lower()
@@ -58,6 +61,10 @@ def list(request):
             profile = Post.objects.all()
         return render(request, 'list.html', {'profile': profile})
 
+
+'''
+Help-form submission View
+'''
 @login_required()
 def help(request):
     try:
@@ -68,26 +75,65 @@ def help(request):
         avatar = None
     return render(request, 'help_form.html', {'profile': avatar})
 
+
 # TODO: Remove this function, this is just for flushing all database entries
 def drop(request):
     profile_nill = Post.objects.all().delete()
     return HttpResponseRedirect('/list')
 
-# Function for logging user in
-def loginuser(request):
-    return render(request, 'login.html')
 
-# Function for logging user out
+'''
+Sign-Up View
+'''
+def sign_up(request):
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('login'))
+        else:
+            print(form.errors)
+    return render(request, 'sign_up.html', {'form': form})
+
+
+'''
+Log-In View
+'''
+def loginuser(request):
+    form = AuthenticationForm()
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('home_login'))
+    return render(request, 'login.html', {'form': form})
+
+
+'''
+Log-Out View
+'''
 def logoutuser(request):
     logout(request)
     return HttpResponseRedirect('/home_login/')
 
-# Utility function
-def get_user(request):
-    current_user = request.user
-    return HttpResponse('current_user name is: ' + str(current_user.first_name) + ' ' + str(current_user.last_name))
 
-# Function for upVote feature
+'''
+Password Change View
+'''
+def passchange(request):
+    form  = PasswordChangeForm(user=request.user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('home_login'))
+    return render(request, 'passchangeform.html', {'form': form})
+
+
+'''
+Up-Vote view
+'''
 def upvote(request):
     filter = request.GET.get('filter')
     query = Post.objects.get(id=filter)
@@ -97,7 +143,10 @@ def upvote(request):
     query.save()
     return HttpResponse(votes)
 
-# Function for downVote feature
+
+'''
+ Down-Vote view
+'''
 def downvote(request):
     filter = request.GET.get('filter')
     query = Post.objects.get(id=filter)
@@ -107,8 +156,10 @@ def downvote(request):
     query.save()
     return HttpResponse(votes)
 
-# Function for Deleting a Post, that's why requires LoggedIn User
-@login_required
+
+'''
+Delete-Post view
+'''
 def delete_post(request):
     post_id = request.GET.get('post_id')
     query = Post.objects.get(id=post_id)

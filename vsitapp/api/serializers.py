@@ -6,15 +6,28 @@ class PeopleSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'name',
+            'first_name',
             'title',
+            'story',
+
         ]
 
 class PeopleDetailSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'name',
+            'first_name',
+            'title',
+            'story',
+            'author',
+            'votings',
+        ]
+
+class PeopleCreateSerializer(ModelSerializer):
+    class Meta:
+        model = Post
+        fields = [
             'title',
             'story',
         ]
+

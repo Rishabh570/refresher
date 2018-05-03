@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+video {
+    object-fit: fill;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.form {
+    position: absolute;
+    top: 50px;
+    left: 450px;
+    width: 60%;
+    height: 500px;
+    margin: 0 365px;
+    padding: 50px;
+    font-family: serif;
+    background-color: #e3e3e3;
+    box-shadow: 2px 1px 3px 2px skyblue;
+}

@@ -2,40 +2,29 @@
     {% block content %}
 
         {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+            <h3>Your username and password didn't match. Please try again.</h3>
         {% endif %}
-        
-        {% if next %}
-            {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed,
-            please login with an account that has access.</p>
-            {% else %}
-            <p>Please login to see this page.</p>
-            {% endif %}
-        {% endif %}
-        
-        <form method="post" action="{% url 'home' %}">
+
+        <form action="{% url 'home_login' %}" method="post">
             {% csrf_token %}
-            <table>
-            <tr>
-                <td>Username</td>
-                <td><input type="text" name='username' id='username'></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name='password' id='password'></td>
-            </tr>
-            </table>
-            
-            <input type="submit" value="login">
-            <input type="hidden" name="next" value="{{ next }}">
+            <h2 id="login-head">Log-In</h2>
+            <hr id="hr">
+    
+            <div class="form">
+                {% for field in form %}
+                  <div class="form-elements">
+                    <label>{{ field.label_tag }}</label>
+                    {{ field }}
+                  </div>
+                {% endfor %}
+            <button type="submit" id="login-submit">Log In</button>
+    
+           <p><strong>-- OR --</strong></p>
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+            <p><strong>-- OR --</strong></p>
+            <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+    
         </form>
-
-       <p><strong>-- OR --</strong></p>
-        <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
-        <p><strong>-- OR --</strong></p>
-        <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-
 
     {% endblock %}
 </body>

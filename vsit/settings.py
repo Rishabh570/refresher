@@ -42,7 +42,7 @@ AUTHENTICATION_BACKENDS = (
 # ReCaptcha secret
 GOOGLE_RECAPTCHA_SECRET_KEY = config('GOOGLE_RECAPTCHA_SECRET_KEY')
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'home_login'
 LOGIN_REDIRECT_URL = 'help'
 
 # Google Client_Id and Client_Secret
@@ -73,7 +73,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    
+    # Inbuild Apps
     'vsitapp',
+
+    # Third Party Apps
     'rest_framework',
     'social_django',
     'vote',
@@ -163,11 +167,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "/users/hp/vsit/vsitapp/static/"),
     #'/var/www/static/',
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "/static_cdn/")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
