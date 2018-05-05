@@ -1,6 +1,5 @@
 .env
-
-vsitenv
+env
 
 __pycache__
 

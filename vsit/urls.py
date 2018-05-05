@@ -13,12 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
+
 from vsitapp import views
 from django.conf import settings
+from django.contrib import admin
+from django.conf.urls import url, include
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     # Admin Dashboard URL
@@ -29,15 +30,15 @@ urlpatterns = [
     
     url('^$', views.home_login, name='home_login'),  # Ngrok uses this most of the times
     url(r'^home_login/$', views.home_login, name='home_login'),
-    url(r'help/$', views.help, name='help'),
+    url(r'^help/$', views.help, name='help'),
     url(r'^list/$', views.list, name='list'),
     
     # Use this to delete all values stored in db
-    url(r'drop/$', views.drop),
+    url(r'^drop/$', views.drop),
 
     # User Credentials URLs
-    url(r'^login/', views.loginuser, name='login'),
-    url(r'^logout/', views.logoutuser, name='logout'),
+    url(r'^login/$', views.loginuser, name='login'),
+    url(r'^logout/$', views.logoutuser, name='logout'),
     url(r'^signup/$', views.sign_up, name='sign_up'),
     url(r'^passchangeform/$', views.passchange, name='passchangeform'),
 

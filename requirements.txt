@@ -7,10 +7,13 @@ django-disqus==0.5
 django-livereload-server==0.2.3
 django-vote==2.1.6
 djangorestframework==3.7.7
+gevent==1.2.2
+greenlet==0.4.13
 idna==2.6
 mock==2.0.0
 oauthlib==2.0.6
 pbr==3.1.1
+preggy==1.4.2
 PyJWT==1.5.3
 python-decouple==3.1
 python3-openid==3.1.0
@@ -21,4 +24,5 @@ six==1.11.0
 social-auth-app-django==2.1.0
 social-auth-core==1.6.0
 tornado==5.0.1
+Unidecode==1.0.22
 urllib3==1.22
