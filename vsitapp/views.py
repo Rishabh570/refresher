@@ -41,20 +41,20 @@ def list(request):
     if request.method == 'POST':
 
         ''' Begin reCAPTCHA validation '''
-        re_response = request.POST["g-recaptcha-response"]
-        data = {
-            "secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-            "response": re_response,
-        }
-        res = requests.post("https://www.google.com/recaptcha/api/siteverify", data=data).json()
+        # re_response = request.POST["g-recaptcha-response"]
+        # data = {
+        #     "secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        #     "response": re_response,
+        # }
+        # res = requests.post("https://www.google.com/recaptcha/api/siteverify", data=data).json()
 
-        if res['success']:
-            title_lower = request.POST.get('title').lower()
-            author = request.user.username
-            profile = Post.objects.create(first_name=request.user.first_name, title=title_lower, story=request.POST.get('story'), author=author)
-            return HttpResponseRedirect('/list/')
-        else:
-            return HttpResponseRedirect('/help/')
+        # if res['success']:
+        title_lower = request.POST.get('title').lower()
+        author = request.user.username
+        profile = Post.objects.create(first_name=request.user.first_name, title=title_lower, story=request.POST.get('story'), author=author)
+        return HttpResponseRedirect('/list/')
+        # else:
+        #     return HttpResponseRedirect('/help/')
 
     # GET METHOD =========================================
     elif request.method == 'GET':
