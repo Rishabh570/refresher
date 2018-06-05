@@ -14,7 +14,7 @@
 				<form action='{% url "list" %}' method='POST'>
 					{% csrf_token %}
 					<div class="head">
-							<img src="{{ profile }}" alt="profile" id="picture">
+							<!-- <img src="{{ profile }}" alt="profile" id="picture"> -->
 							<p id='welcome'>Welcome {{ request.user.first_name }} {{ request.user.last_name }}, we respect your valueable contribution...</p>
 		
 					</div>

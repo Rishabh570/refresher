@@ -18,9 +18,17 @@ Its super easy to get started! Just follow the steps below :smiley:
 
 **and you're good to go** :tada:
 
+## Accessing API :book:
+
+- **/api/people/** - _returns a list of people posted._
+- **/api/people/{first_name}** - _returns posts posted by that particular person._
+- **/api/people-delete/{target}** - _deletes the target post._
+- **/api/create/** - _creates a post right from API_ :smiley:
+
+
 ### TODO :pushpin:
 
 - [ ] Add Celery
-- [ ] Add Caching
+- [x] Add Caching
 - [ ] Work on front-end (React.js)
 - [ ] Add Google Analytics

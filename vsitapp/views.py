@@ -73,12 +73,12 @@ Help-form submission View
 '''
 @login_required(login_url='/login/')
 def help(request):
-    try:
-        profile_url = 'https://api.github.com/search/users?q={}'.format(request.user.username)
-        response = requests.get(profile_url).json()
-        avatar = response['items'][0]['avatar_url']
-    except:
-        avatar = None
+    # try:
+    #     profile_url = 'https://api.github.com/search/users?q={}'.format(request.user.username)
+    #     response = requests.get(profile_url).json()
+    #     avatar = response['items'][0]['avatar_url']
+    # except:
+    #     avatar = None
     return render(request, 'help_form.html', {'profile': avatar})
 
 
