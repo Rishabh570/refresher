@@ -31,4 +31,3 @@ Its super easy to get started! Just follow the steps below :smiley:
 - [ ] Add Celery
 - [x] Add Caching
 - [ ] Work on front-end (React.js)
-- [ ] Add Google Analytics
