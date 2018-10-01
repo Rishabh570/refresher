@@ -29,5 +29,5 @@ Its super easy to get started! Just follow the steps below :smiley:
 ### TODO :pushpin:
 
 - [ ] Add Celery
-- [x] Add Caching
+- [ ] Add Caching
 - [ ] Work on front-end (React.js)
