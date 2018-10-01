@@ -1,6 +1,6 @@
 # Refresher
 
-A really impactful way to deal with stress related to _work-life balance_ is to **hear about the same from thousands of people...**
+One of the really impactful way to deal with stress related to _work-life balance_ is to **hear about the same from thousands of people...**
 
 ## Want to contribute/Improve it? :mag:
 
