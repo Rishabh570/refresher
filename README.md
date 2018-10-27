@@ -1,3 +1,5 @@
+[![HitCount](http://hits.dwyl.io/rishabh570/refresher.svg)](http://hits.dwyl.io/rishabh570/refresher)
+
 # Refresher
 
 One of the really impactful way to deal with stress related to _work-life balance_ is to **hear about the same from thousands of people...**
