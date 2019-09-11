@@ -1,4 +1,4 @@
-[![HitCount](http://hits.dwyl.io/rishabh570/refresher.svg)](http://hits.dwyl.io/rishabh570/refresher)
+[![GitHub license](https://img.shields.io/github/license/Rishabh570/refresher)](https://github.com/Rishabh570/refresher/blob/master/LICENSE)
 
 # Refresher
 
@@ -27,9 +27,3 @@ Its super easy to get started! Just follow the steps below :smiley:
 - **/api/people-delete/{target}** - _deletes the target post._
 - **/api/create/** - _creates a post right from API_ :smiley:
 
-
-### TODO :pushpin:
-
-- [ ] Add Celery
-- [ ] Add Caching
-- [ ] Work on front-end (React.js)
