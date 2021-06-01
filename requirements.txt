@@ -33,5 +33,5 @@ social-auth-app-django==2.1.0
 social-auth-core==1.6.0
 tornado==5.0.1
 Unidecode==1.0.22
-urllib3==1.24.2
+urllib3==1.26.5
 wrapt==1.10.11
